@@ -2,14 +2,11 @@ package databaseworkers
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"time"
 
 	"github.com/beego/beego"
 	_ "github.com/lib/pq"
-
-	"tfoms_server/static/exceptions"
 )
 
 var (
@@ -22,7 +19,7 @@ var (
 	max_conn  int = 40
 	idle_conn int = 10
 
-	postgreConn *sql.DB // Глобальное соединение sql
+	db *sql.DB // Глобальное соединение sql
 
 	DB_CONN_ERROR error
 )
@@ -37,30 +34,33 @@ func init() {
 	max_conn = beego.AppConfig.DefaultInt("db_max_conn", 50)
 	idle_conn = beego.AppConfig.DefaultInt("db_idle_conn", 10)
 
-	DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
+	// DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
 }
 
 func GetPostgresSession() *sql.DB {
-	if postgreConn == nil {
-		psqlInfo := fmt.Sprintf(`host=%s port=%d user=%s password=%s dbname=%s sslmode=disable`,
-			host, port, user, password, dbname)
+	if db == nil {
+		psqlInfo := fmt.Sprintf(`host=%s port=%d user=%s password=%s dbname=%s sslmode=disable`, host, port, user, password, dbname)
 
-		db, err := sql.Open("postgres", psqlInfo)
+		dbOpen, err := sql.Open("postgres", psqlInfo)
 		if err != nil {
 			return nil
 		}
 
-		db.SetConnMaxLifetime(30 * time.Minute)
-		db.SetMaxOpenConns(max_conn)
-		db.SetMaxIdleConns(idle_conn)
+		dbOpen.SetConnMaxLifetime(30 * time.Minute)
+		dbOpen.SetMaxOpenConns(max_conn)
+		dbOpen.SetMaxIdleConns(idle_conn)
 
 		//		err = db.Ping()
 		//		if err != nil {
 		//			return nil
 		//		}
 
-		postgreConn = db
+		db = dbOpen
 	}
 
-	return postgreConn
+	return db
+}
+
+func GetAllRows(table string) {
+	db.Query("select * from ")
 }
