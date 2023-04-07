@@ -61,6 +61,32 @@ func GetPostgresSession() *sql.DB {
 	return db
 }
 
-func GetAllRows(table string) {
-	db.Query("select * from ")
+func GetAllRowsAsMap(table string) (*[]map[string]interface{}, error) {
+	rows, err := db.Query("select * from " + table)
+	if err != nil {
+		return nil, err
+	}
+	return rowsToMap(rows)
+}
+
+func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {
+	columns, _ := rows.Columns()
+	columnLength := len(columns)
+	cache := make([]interface{}, columnLength) //temporarily store each row of data
+	for index := range cache {                 // initialize a pointer for each column
+		var a interface{}
+		cache[index] = &a
+	}
+	var list []map[string]interface{} //returned slice
+	for rows.Next() {
+		_ = rows.Scan(cache...)
+
+		item := make(map[string]interface{})
+		for i, data := range cache {
+			item[columns[i]] = *data.(*interface{})
+		}
+		list = append(list, item)
+	}
+	_ = rows.Close()
+	return &list, nil
 }
