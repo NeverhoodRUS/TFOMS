@@ -8,5 +8,5 @@ var (
 	PriorityGroupTableName   string = "d_priority_group"
 	InformingMethodTableName string = "d_informing_method"
 	InformingTypeTableName   string = "d_informing_type"
-	HealthGroupableName      string = "d_health_group"
+	HealthGroupTableName     string = "d_health_group"
 )

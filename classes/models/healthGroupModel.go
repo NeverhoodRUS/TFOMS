@@ -9,7 +9,7 @@ import (
 )
 
 func HealthGroupDictionary() ([]entities.HealthGroup, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.HealthGroupableName)
+	rows, err := databaseworkers.GetAllRowsAsMap(strings.HealthGroupTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
