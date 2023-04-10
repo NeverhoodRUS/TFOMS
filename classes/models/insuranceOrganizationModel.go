@@ -3,12 +3,13 @@ package models
 import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
+	"tfoms_server/static/strings"
 
 	"github.com/blockloop/scan"
 )
 
 func InsuranceOrganizationDictionary() ([]entities.InsuranceOrganization, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(insuranceOrgTableName)
+	rows, err := databaseworkers.GetAllRowsAsMap(strings.InsuranceOrgTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

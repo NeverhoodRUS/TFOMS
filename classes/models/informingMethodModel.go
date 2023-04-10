@@ -3,12 +3,13 @@ package models
 import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
+	"tfoms_server/static/strings"
 
 	"github.com/blockloop/scan"
 )
 
 func InformingMethodDictionary() ([]entities.InformingMethod, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(informingMethodTableName)
+	rows, err := databaseworkers.GetAllRowsAsMap(strings.InformingMethodTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
