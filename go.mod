@@ -9,6 +9,7 @@ require github.com/smartystreets/goconvey v1.6.4
 require (
 	github.com/beego/beego v1.12.12
 	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/blockloop/scan v1.3.0
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 // indirect

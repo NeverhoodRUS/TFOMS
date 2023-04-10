@@ -4,19 +4,18 @@ import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
 
-	"github.com/mitchellh/mapstructure"
+	"github.com/blockloop/scan"
 )
 
 func SexDictionary() ([]entities.Sex, string) {
-	maps, err := databaseworkers.GetAllRowsAsMap(sexTableName)
+	rows, err := databaseworkers.GetAllRowsAsMap(sexTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
 	var result []entities.Sex
-	for _, el := range *maps {
-		var ent entities.Sex
-		mapstructure.Decode(el, &ent)
-		result = append(result, ent)
+	err = scan.Rows(&result, rows)
+	if err != nil {
+		return nil, err.Error()
 	}
 	return result, ""
 }

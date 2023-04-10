@@ -4,19 +4,18 @@ import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
 
-	"github.com/mitchellh/mapstructure"
+	"github.com/blockloop/scan"
 )
 
 func ProrityGroupDictionary() ([]entities.PriorityGroup, string) {
-	maps, err := databaseworkers.GetAllRowsAsMap(priorityGroupTableName)
+	rows, err := databaseworkers.GetAllRowsAsMap(priorityGroupTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
 	var result []entities.PriorityGroup
-	for _, el := range *maps {
-		var ent entities.PriorityGroup
-		mapstructure.Decode(el, &ent)
-		result = append(result, ent)
+	err = scan.Rows(&result, rows)
+	if err != nil {
+		return nil, err.Error()
 	}
 	return result, ""
 }

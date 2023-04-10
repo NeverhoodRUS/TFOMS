@@ -2,7 +2,9 @@ package databaseworkers
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
+	"tfoms_server/static/exceptions"
 	"time"
 
 	"github.com/beego/beego"
@@ -34,7 +36,7 @@ func init() {
 	max_conn = beego.AppConfig.DefaultInt("db_max_conn", 50)
 	idle_conn = beego.AppConfig.DefaultInt("db_idle_conn", 10)
 
-	// DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
+	DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
 }
 
 func GetPostgresSession() *sql.DB {
@@ -61,32 +63,32 @@ func GetPostgresSession() *sql.DB {
 	return db
 }
 
-func GetAllRowsAsMap(table string) (*[]map[string]interface{}, error) {
+func GetAllRowsAsMap(table string) (*sql.Rows, error) {
 	rows, err := db.Query("select * from " + table)
 	if err != nil {
 		return nil, err
 	}
-	return rowsToMap(rows)
+	return rows, nil
 }
 
-func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {
-	columns, _ := rows.Columns()
-	columnLength := len(columns)
-	cache := make([]interface{}, columnLength) //temporarily store each row of data
-	for index := range cache {                 // initialize a pointer for each column
-		var a interface{}
-		cache[index] = &a
-	}
-	var list []map[string]interface{} //returned slice
-	for rows.Next() {
-		_ = rows.Scan(cache...)
+// func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {
+// 	columns, _ := rows.Columns()
+// 	columnLength := len(columns)
+// 	cache := make([]interface{}, columnLength) //temporarily store each row of data
+// 	for index := range cache {                 // initialize a pointer for each column
+// 		var a interface{}
+// 		cache[index] = &a
+// 	}
+// 	var list []map[string]interface{} //returned slice
+// 	for rows.Next() {
+// 		_ = rows.Scan(cache...)
 
-		item := make(map[string]interface{})
-		for i, data := range cache {
-			item[columns[i]] = *data.(*interface{})
-		}
-		list = append(list, item)
-	}
-	_ = rows.Close()
-	return &list, nil
-}
+// 		item := make(map[string]interface{})
+// 		for i, data := range cache {
+// 			item[columns[i]] = *data.(*interface{})
+// 		}
+// 		list = append(list, item)
+// 	}
+// 	_ = rows.Close()
+// 	return &list, nil
+// }
