@@ -6,6 +6,6 @@ type Progress struct {
 	EventDate             int
 	CompletedEventId      int
 	HealthGroupId         int
-	RefferalSecondStage   bool
+	SecondStage           bool
 	ExecutingOrganization int
 }
