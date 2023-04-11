@@ -9,4 +9,10 @@ var (
 	InformingMethodTableName string = "d_informing_method"
 	InformingTypeTableName   string = "d_informing_type"
 	HealthGroupTableName     string = "d_health_group"
+	PatientTableName         string = "patients"
+	PlanningYearTableName    string = "planning_year"
+	ApprovalInfoTableName    string = "approval_indormation"
+	InformingTableName       string = "informing"
+	ProgressTableName        string = "progress"
+	PlanningGroupTableName   string = "planning_group"
 )
