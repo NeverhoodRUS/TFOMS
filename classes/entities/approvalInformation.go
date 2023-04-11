@@ -1,6 +1,6 @@
 package entities
 
-type ApproveInformation struct {
+type ApprovalInformation struct {
 	PlanningYearId          int
 	ApproveDate             int
 	InsuranceOrganizationId int
