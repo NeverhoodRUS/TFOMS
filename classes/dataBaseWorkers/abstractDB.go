@@ -63,12 +63,16 @@ func GetPostgresSession() *sql.DB {
 	return db
 }
 
-func GetAllRowsAsMap(table string) (*sql.Rows, error) {
-	rows, err := db.Query("select * from " + table)
+func GetAllRows(table string) (*sql.Rows, error) {
+	rows, err := db.Query("select * from ?", table)
 	if err != nil {
 		return nil, err
 	}
 	return rows, nil
+}
+
+func GetRow(table string, id int) *sql.Row {
+	return db.QueryRow("select * from ? where id = ?", table, id)
 }
 
 // func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {

@@ -9,7 +9,7 @@ import (
 )
 
 func SexDictionary() ([]entities.Sex, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.SexTableName)
+	rows, err := databaseworkers.GetAllRows(strings.SexTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func EventTypeDictionary() ([]entities.EventType, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.EventTypeTableName)
+	rows, err := databaseworkers.GetAllRows(strings.EventTypeTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

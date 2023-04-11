@@ -9,7 +9,7 @@ import (
 )
 
 func InformingTypeDictionary() ([]entities.InformingType, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.InformingTypeTableName)
+	rows, err := databaseworkers.GetAllRows(strings.InformingTypeTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

@@ -9,7 +9,7 @@ import (
 )
 
 func InsuranceOrganizationDictionary() ([]entities.InsuranceOrganization, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.InsuranceOrgTableName)
+	rows, err := databaseworkers.GetAllRows(strings.InsuranceOrgTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

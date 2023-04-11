@@ -9,7 +9,7 @@ import (
 )
 
 func ProrityGroupDictionary() ([]entities.PriorityGroup, string) {
-	rows, err := databaseworkers.GetAllRowsAsMap(strings.PriorityGroupTableName)
+	rows, err := databaseworkers.GetAllRows(strings.PriorityGroupTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
