@@ -7,7 +7,6 @@ require github.com/beego/beego/v2 v2.0.1
 require github.com/smartystreets/goconvey v1.6.4
 
 require (
-	github.com/beego/beego v1.12.12
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blockloop/scan v1.3.0
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
@@ -33,5 +32,5 @@ require (
 	golang.org/x/tools v0.0.0-20201211185031-d93e913c1a58 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/protobuf v1.23.0 // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
+	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

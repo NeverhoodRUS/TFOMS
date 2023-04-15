@@ -7,7 +7,8 @@ import (
 	"tfoms_server/static/exceptions"
 	"time"
 
-	"github.com/beego/beego"
+	"github.com/beego/beego/v2/core/config"
+
 	_ "github.com/lib/pq"
 )
 
@@ -27,14 +28,14 @@ var (
 )
 
 func init() {
-	host = beego.AppConfig.String("db_host")
-	port, _ = beego.AppConfig.Int("db_port")
-	user = beego.AppConfig.String("db_user")
-	password = beego.AppConfig.String("db_password")
-	dbname = beego.AppConfig.String("db_name")
+	host, _ = config.String("db_host")
+	port, _ = config.Int("db_port")
+	user, _ = config.String("db_user")
+	password, _ = config.String("db_password")
+	dbname, _ = config.String("db_name")
 
-	max_conn = beego.AppConfig.DefaultInt("db_max_conn", 50)
-	idle_conn = beego.AppConfig.DefaultInt("db_idle_conn", 10)
+	max_conn = config.DefaultInt("db_max_conn", 50)
+	idle_conn = config.DefaultInt("db_idle_conn", 10)
 
 	DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
 }
