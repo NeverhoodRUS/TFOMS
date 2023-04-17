@@ -3,13 +3,13 @@ package models
 import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
-	"tfoms_server/static/strings"
+	"tfoms_server/static/names"
 
 	"github.com/blockloop/scan"
 )
 
 func ProrityGroupDictionary() ([]entities.PriorityGroup, string) {
-	rows, err := databaseworkers.GetAllRows(strings.PriorityGroupTableName)
+	rows, err := databaseworkers.GetAllRows(names.PriorityGroupTableName)
 	if err != nil {
 		return nil, err.Error()
 	}

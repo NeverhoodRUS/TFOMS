@@ -2,7 +2,7 @@ package databaseworkers
 
 import (
 	"strconv"
-	"tfoms_server/static/strings"
+	"tfoms_server/static/names"
 )
 
 type PlanningYearColumns struct {
@@ -18,6 +18,6 @@ type PlanningYearColumns struct {
 
 func (pyc *PlanningYearColumns) GetRowStruct(patientId int) {
 	var where string = "patient_id = " + strconv.Itoa(patientId)
-	getRow(strings.PlanningYearTableName, where).Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate,
+	getRow(names.PlanningYearTableName, where).Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate,
 		&pyc.COVIDDate, &pyc.PatientId, &pyc.PlannedEventId, &pyc.PriorityGroupId)
 }

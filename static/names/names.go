@@ -1,4 +1,4 @@
-package strings
+package names
 
 var (
 	MedicalOrgTableName      string = "d_medical_organization"

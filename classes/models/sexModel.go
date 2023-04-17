@@ -3,13 +3,13 @@ package models
 import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
 	"tfoms_server/classes/entities"
-	"tfoms_server/static/strings"
+	"tfoms_server/static/names"
 
 	"github.com/blockloop/scan"
 )
 
 func SexDictionary() ([]entities.Sex, string) {
-	rows, err := databaseworkers.GetAllRows(strings.SexTableName)
+	rows, err := databaseworkers.GetAllRows(names.SexTableName)
 	if err != nil {
 		return nil, err.Error()
 	}
