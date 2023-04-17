@@ -2,15 +2,37 @@ package databaseworkers
 
 import (
 	"database/sql"
+	"strconv"
 	"tfoms_server/static/strings"
 )
 
+type PatientColumns struct {
+	Id               int    `field:"id"`
+	ENP              string `field:"enp"`
+	FirstName        string `field:"firstname"`
+	SecondName       string `field:"secondname"`
+	MiddleName       string `field:"middlename"`
+	BirthDate        int    `field:"birth_date"`
+	Address          string `field:"address"`
+	PhoneNumber      string `field:"phone_number"`
+	EndInsuranceDate int    `field:"end_insurance_date"`
+	InsuranceOrgId   int    `field:"insurance_org_id"`
+	OrganizationId   int    `field:"organization_id"`
+	SexId            int    `field:"sex_id"`
+}
+
 func GetPatientJournal(filters map[string]string) (*sql.Rows, error) {
-	rows, err := db.Query(initQueryByFilter(filters))
+	rows, err := getPostgresSession().Query(initQueryByFilter(filters))
 	if err != nil {
 		return nil, err
 	}
 	return rows, nil
+}
+
+func (pc *PatientColumns) GetRowStruct(id int) {
+	var where string = "id = " + strconv.Itoa(id)
+	getRow(strings.PatientTableName, where).Scan(&pc.Id, &pc.ENP, &pc.FirstName, &pc.SecondName, &pc.MiddleName,
+		&pc.BirthDate, &pc.Address, &pc.PhoneNumber, &pc.EndInsuranceDate, &pc.InsuranceOrgId, &pc.OrganizationId, &pc.SexId)
 }
 
 func initQueryByFilter(filters map[string]string) string {

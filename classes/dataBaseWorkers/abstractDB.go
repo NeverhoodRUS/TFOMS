@@ -40,7 +40,7 @@ func init() {
 	DB_CONN_ERROR = errors.New(exceptions.DB_connection_error)
 }
 
-func GetPostgresSession() *sql.DB {
+func getPostgresSession() *sql.DB {
 	if db == nil {
 		psqlInfo := fmt.Sprintf(`host=%s port=%d user=%s password=%s dbname=%s sslmode=disable`, host, port, user, password, dbname)
 
@@ -64,16 +64,17 @@ func GetPostgresSession() *sql.DB {
 	return db
 }
 
-func GetAllRows(table string) (*sql.Rows, error) {
-	rows, err := db.Query("select * from ?", table)
-	if err != nil {
-		return nil, err
-	}
-	return rows, nil
+type AbstracterDB interface {
+	GetRowStruct(any ...any) *interface{}
 }
 
-func GetRow(table string, id int) *sql.Row {
-	return db.QueryRow("select * from ? where id = ?", table, id)
+func GetAllRows(table string) (*sql.Rows, error) {
+	return getPostgresSession().Query("select * from ?", table)
+}
+
+func getRow(table string, where string) *sql.Row {
+	var query string = "select * from " + table + " where " + where
+	return getPostgresSession().QueryRow(query)
 }
 
 // func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {

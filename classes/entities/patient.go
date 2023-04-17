@@ -2,33 +2,16 @@ package entities
 
 import (
 	databaseworkers "tfoms_server/classes/dataBaseWorkers"
-	"tfoms_server/static/strings"
 )
 
 type Patient struct {
-	Id               int    // identificator
-	ENP              string // enp
-	SecondName       string
-	FirstName        string
-	MiddleName       string
-	BirthDay         int // timestamp
-	SexId            int
-	Address          string
-	PhoneNumber      string
-	EndInsuranceDate int // timestamp
-	OrganizationId   int // attached organization
-	MedicalOrgId     int // medical organization id
-
-	PriorityGroupId int
-	PlYear          *PlanningYear
+	PatientDB     *databaseworkers.PatientColumns
+	PlannedYearDB *databaseworkers.PlanningYearColumns
 }
 
-func PatientInit(patientId int) (*Patient, error) {
-	row := databaseworkers.GetRow(strings.PatientTableName, patientId)
-	patient := &Patient{}
-	err := row.Scan(&patient)
-	if err != nil {
-		return nil, err
-	}
-	return patient, nil
+func PatientInit(patientId int) *Patient {
+	patient := &Patient{PatientDB: &databaseworkers.PatientColumns{}, PlannedYearDB: &databaseworkers.PlanningYearColumns{}}
+	patient.PatientDB.GetRowStruct(patientId)
+	patient.PlannedYearDB.GetRowStruct(patientId)
+	return patient
 }

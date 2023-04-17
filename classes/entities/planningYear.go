@@ -1,12 +1,7 @@
 package entities
 
+import databaseworkers "tfoms_server/classes/dataBaseWorkers"
+
 type PlanningYear struct {
-	Id              int
-	Year            int
-	PatientId       int
-	LastVisitDate   int
-	COVIDDate       int
-	PlannedEvent    int
-	PlannedMonth    int
-	PriorityGroupId int
+	PlannedYearDB *databaseworkers.PlanningYearColumns
 }

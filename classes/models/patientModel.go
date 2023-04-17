@@ -10,9 +10,13 @@ func GetPatientJournal(filters map[string]string) ([]entities.Patient, string) {
 	if err != nil {
 		return nil, err.Error()
 	}
+	defer rows.Close()
 	var result []entities.Patient
 	for rows.Next() {
-
+		var id int
+		rows.Scan(&id)
+		patient := entities.PatientInit(id)
+		result = append(result, *patient)
 	}
 	return result, ""
 }
