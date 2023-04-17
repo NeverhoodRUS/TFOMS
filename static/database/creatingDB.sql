@@ -45,10 +45,10 @@ CREATE TABLE patients(
     firstname character varying(50) not null,
     secondname character varying(50) not null,
     middlename character varying(50) not null,
-    birth_date timestamp not null,
+    birth_date INTEGER not null,
     address character varying(100),
     phone_number character varying(20),
-    end_insurance_date timestamp,
+    end_insurance_date INTEGER,
     insurance_org_id int not null,
     organization_id int not null,
     sex_id int not null,
@@ -60,8 +60,8 @@ CREATE TABLE planning_year (
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     planned_year integer,
     planned_month integer,
-    last_visit_date TIMESTAMP,
-    covid_date TIMESTAMP,
+    last_visit_date INTEGER,
+    covid_date INTEGER,
     patient_id integer not NULL,
     planned_event_id integer,
     priority_group_id INTEGER,
@@ -71,7 +71,7 @@ CREATE TABLE planning_year (
 );
 CREATE TABLE approval_information(  
     planning_year_id INTEGER not NULL,
-    approve_date TIMESTAMP NOT NULL,
+    approve_date INTEGER NOT NULL,
     aproved_user_id INTEGER NOT NULL,
     insurance_org_id INTEGER NOT NULL,
     Foreign Key (insurance_org_id) REFERENCES d_insurance_organization (id)
@@ -79,7 +79,7 @@ CREATE TABLE approval_information(
 CREATE TABLE informing(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     patient_id INTEGER NOT NULL,
-    informing_date TIMESTAMP NOT NULL,
+    informing_date INTEGER NOT NULL,
     informing_type_id INTEGER NOT NULL,
     informing_method_id INTEGER NOT NULL,
     Foreign Key (patient_id) REFERENCES patients (id),
@@ -89,7 +89,7 @@ CREATE TABLE informing(
 CREATE TABLE progress(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     patient_id INTEGER NOT NULL,
-    event_date TIMESTAMP,
+    event_date INTEGER,
     completed_event_id INTEGER,
     health_group_id INTEGER,
     second_stage BOOLEAN NOT NULL DEFAULT false,
