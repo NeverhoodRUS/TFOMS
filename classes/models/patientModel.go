@@ -15,7 +15,7 @@ func GetPatientJournal(filters map[string]string) ([]entities.Patient, string) {
 	for rows.Next() {
 		var id int
 		rows.Scan(&id)
-		patient := entities.PatientInit(id)
+		patient := entities.PatientInit(id, false)
 		result = append(result, *patient)
 	}
 	return result, ""
