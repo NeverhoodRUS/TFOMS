@@ -5,13 +5,21 @@ import (
 )
 
 type Patient struct {
-	PatientDB     *databaseworkers.PatientColumns
-	PlannedYearDB *databaseworkers.PlanningYearColumns
+	PatientDB      *databaseworkers.PatientColumns
+	PlanningYearDB []*databaseworkers.PlanningYearColumns
 }
 
-func PatientInit(patientId int) *Patient {
-	patient := &Patient{PatientDB: &databaseworkers.PatientColumns{}, PlannedYearDB: &databaseworkers.PlanningYearColumns{}}
+func PatientInit(patientId int, allPlans bool) *Patient {
+	patient := &Patient{PatientDB: &databaseworkers.PatientColumns{}}
 	patient.PatientDB.GetRowStruct(patientId)
-	patient.PlannedYearDB.GetRowStruct(patientId)
+
+	if !allPlans {
+		var pyc *databaseworkers.PlanningYearColumns = &databaseworkers.PlanningYearColumns{}
+		pyc.GetRowStruct(patientId)
+		patient.PlanningYearDB = append(patient.PlanningYearDB, pyc)
+	} else {
+		patient.PlanningYearDB = databaseworkers.GetPatientPlans(patientId)
+	}
+
 	return patient
 }

@@ -77,6 +77,11 @@ func getRow(table string, where string) *sql.Row {
 	return getPostgresSession().QueryRow(query)
 }
 
+func getRows(table string, where string) (*sql.Rows, error) {
+	var query string = "select * from " + table + " where " + where
+	return getPostgresSession().Query(query)
+}
+
 // func rowsToMap(rows *sql.Rows) (*[]map[string]interface{}, error) {
 // 	columns, _ := rows.Columns()
 // 	columnLength := len(columns)

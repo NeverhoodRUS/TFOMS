@@ -17,7 +17,25 @@ type PlanningYearColumns struct {
 }
 
 func (pyc *PlanningYearColumns) GetRowStruct(patientId int) {
-	var where string = "patient_id = " + strconv.Itoa(patientId)
+	var where string = "patient_id = " + strconv.Itoa(patientId) + " order by planned_year desc limit 1"
 	getRow(names.PlanningYearTableName, where).Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate,
 		&pyc.COVIDDate, &pyc.PatientId, &pyc.PlannedEventId, &pyc.PriorityGroupId)
+}
+
+func GetPatientPlans(patientId int) []*PlanningYearColumns {
+	var where string = "patient_id = " + strconv.Itoa(patientId)
+	rows, err := getRows(names.PlanningYearTableName, where)
+	if err != nil {
+		return nil
+	}
+	result := []*PlanningYearColumns{}
+	for rows.Next() {
+		var pyc *PlanningYearColumns
+		err = rows.Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate, &pyc.COVIDDate, &pyc.PatientId, &pyc.PlannedEventId, &pyc.PriorityGroupId)
+		if err == nil {
+			return nil
+		}
+		result = append(result, pyc)
+	}
+	return result
 }
