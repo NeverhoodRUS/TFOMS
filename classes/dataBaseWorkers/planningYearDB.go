@@ -31,7 +31,8 @@ func GetPatientPlans(patientId int) []*PlanningYearColumns {
 	result := []*PlanningYearColumns{}
 	for rows.Next() {
 		var pyc *PlanningYearColumns
-		err = rows.Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate, &pyc.COVIDDate, &pyc.PatientId, &pyc.PlannedEventId, &pyc.PriorityGroupId)
+		err = rows.Scan(&pyc.Id, &pyc.PlannedYear, &pyc.PlannedMonth, &pyc.LastVisitDate, &pyc.COVIDDate,
+			&pyc.PatientId, &pyc.PlannedEventId, &pyc.PriorityGroupId)
 		if err == nil {
 			return nil
 		}

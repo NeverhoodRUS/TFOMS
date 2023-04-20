@@ -1,8 +1,11 @@
 package entities
 
+import databaseworkers "tfoms_server/classes/dataBaseWorkers"
+
 type ApprovalInformation struct {
-	PlanningYearId          int
-	ApproveDate             int
-	InsuranceOrganizationId int
-	ApprovedUserId          int
+	ApprovalDB *databaseworkers.ApprovalColumns
+}
+
+func (ai *ApprovalInformation) NewApprovalInformation(planningYearId int) {
+	ai.ApprovalDB.GetRowStruct(planningYearId)
 }

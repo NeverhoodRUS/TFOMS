@@ -1,9 +1,11 @@
 package entities
 
+import databaseworkers "tfoms_server/classes/dataBaseWorkers"
+
 type Informing struct {
-	Id                int
-	PatientId         int
-	InformingDate     int
-	InformingTypeId   int //Вид информирования
-	InformingMethodId int //Способ информирования
+	InformingDB *databaseworkers.InformingColumns
+}
+
+func (i *Informing) NewIforming(planningYearId int) {
+	i.InformingDB.GetRowStruct(planningYearId)
 }

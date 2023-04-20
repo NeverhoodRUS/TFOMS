@@ -16,7 +16,7 @@ func (c *JournalController) Get() {
 	c.Data["EmailName"] = "Neverhood"
 	filters := make(map[string]string)
 	filters["organization_id"] = "1"
-	patients, _ := models.GetPatientJournal(filters)
+	patients, _ := models.GetPatientJournal(filters, 1000)
 	c.Data["patients"] = patients
-	c.TplName = "jc.tpl"
+	c.TplName = "index.tpl"
 }

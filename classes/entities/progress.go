@@ -1,11 +1,11 @@
 package entities
 
+import databaseworkers "tfoms_server/classes/dataBaseWorkers"
+
 type Progress struct {
-	Id                    int
-	PatientId             int
-	EventDate             int
-	CompletedEventId      int
-	HealthGroupId         int
-	SecondStage           bool
-	ExecutingOrganization int
+	ProgressDB *databaseworkers.ProgressColumns
+}
+
+func (p *Progress) NewProgress(planningYearId int) {
+	p.ProgressDB.GetRowStruct(planningYearId)
 }

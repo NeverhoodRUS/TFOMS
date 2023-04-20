@@ -22,8 +22,8 @@ type PatientColumns struct {
 	SexId            int    `field:"sex_id"`
 }
 
-func GetPatientJournal(filters map[string]string) (*sql.Rows, error) {
-	rows, err := getPostgresSession().Query(initQueryByFilter(filters))
+func GetPatientJournal(filters map[string]string, limit int) (*sql.Rows, error) {
+	rows, err := getPostgresSession().Query(initQueryByFilter(filters) + " limit " + strconv.Itoa(limit))
 	if err != nil {
 		return nil, err
 	}
@@ -37,6 +37,7 @@ func (pc *PatientColumns) GetRowStruct(id int) {
 }
 
 func initQueryByFilter(filters map[string]string) string {
+	//added where id > 0 just for using 'and' below without check
 	var result string = "select id from " + names.PatientTableName + " as p where id > 0"
 	if len(filters) == 0 {
 		return result
