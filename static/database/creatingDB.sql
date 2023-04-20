@@ -69,7 +69,8 @@ CREATE TABLE planning_year (
     Foreign Key (planned_event_id) REFERENCES d_event_type (id),
     Foreign Key (priority_group_id) REFERENCES d_priority_group (id)
 );
-CREATE TABLE approval_information(  
+CREATE TABLE approval_information( 
+    id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     planning_year_id INTEGER not NULL,
     approve_date INTEGER NOT NULL,
     aproved_user_id INTEGER NOT NULL,
@@ -78,22 +79,23 @@ CREATE TABLE approval_information(
 );
 CREATE TABLE informing(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    patient_id INTEGER NOT NULL,
+    planning_year_id INTEGER NOT NULL,
     informing_date INTEGER NOT NULL,
     informing_type_id INTEGER NOT NULL,
     informing_method_id INTEGER NOT NULL,
-    Foreign Key (patient_id) REFERENCES patients (id),
+    Foreign Key (planning_year_id) REFERENCES planning_year (id),
     Foreign Key (informing_type_id) REFERENCES d_informing_type (id),
     Foreign Key (informing_method_id) REFERENCES d_informing_method (id)
 );
 CREATE TABLE progress(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    patient_id INTEGER NOT NULL,
+    planning_year_id INTEGER NOT NULL,
     event_date INTEGER,
     completed_event_id INTEGER,
     health_group_id INTEGER,
     second_stage BOOLEAN NOT NULL DEFAULT false,
-    executing_organization_id INTEGER
+    executing_organization_id INTEGER,
+    Foreign Key (planning_year_id) REFERENCES planning_year (id)
 );
 CREATE TABLE planning_group(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
