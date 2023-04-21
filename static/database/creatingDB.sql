@@ -75,7 +75,8 @@ CREATE TABLE approval_information(
     approve_date INTEGER NOT NULL,
     aproved_user_id INTEGER NOT NULL,
     insurance_org_id INTEGER NOT NULL,
-    Foreign Key (insurance_org_id) REFERENCES d_insurance_organization (id)
+    Foreign Key (insurance_org_id) REFERENCES d_insurance_organization (id),
+    Foreign Key (planning_year_id) REFERENCES planning_year (id)
 );
 CREATE TABLE informing(  
     id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -102,5 +103,6 @@ CREATE TABLE planning_group(
     planning_year_id INTEGER NOT NULL,
     accounting_serial_number INTEGER,
     insurance_org_id INTEGER NOT NULL,
-    Foreign Key (insurance_org_id) REFERENCES d_insurance_organization (id)
+    Foreign Key (insurance_org_id) REFERENCES d_insurance_organization (id),
+    Foreign Key (planning_year_id) REFERENCES planning_year (id)
 );
